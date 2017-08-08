@@ -1,0 +1,2382 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Hyphenate APIs",
+		"_postman_id": "dd7bb8a2-9352-fb3a-a858-c39438aa3fc9",
+		"description": "You can leverage this REST API interfaces for testing. For more details about server implementation, request rate limitation, etc, please visit [Hyphenate Server Integration](https://docs.hyphenate.io/docs/server-overview). \n\n**Note:**\n\n`org_ID` is the unique ID of the organization created when you first registered [Hyphenate console](https://console.hyphenate.io/).                         \n`app_name` is the unique app ID created when you new application in [Hyphenate console](https://console.hyphenate.io/).           \n`Authorization token` is required for most API requests as part of requesting header in the format `Bearer ${token}`. You can obtain the token via [/{org_name}/{app_name}/token](https://docs.hyphenate.io/docs/server-overview#section-request-authentication-token).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"description": "",
+			"item": [
+				{
+					"name": "Request an Authentication Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Response time is less than 200ms\"] = responseTime < 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "https://{{baseURL}}/{{org_name}}/{{app_name}}/token",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\": \"client_credentials\",\n    \"client_id\": \"YXA6EzdrgDzREeeP2tWiQHfV1w\",\n    \"client_secret\": \"YXA6sTlYHHoyCGioX-Mnx9MXiCXnrCg\"\n}"
+						},
+						"description": "All of the Hyphenate API endpoints requires authentication token for session, unless specified otherwise."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat History",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Message History",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatmessages?ql=select%2B*%2Bwhere%2Btimestamp%3E1499800129000&limit=30&cursor=0",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatmessages"
+							],
+							"query": [
+								{
+									"key": "ql",
+									"value": "select%2B*%2Bwhere%2Btimestamp%3E1499800129000",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "limit",
+									"value": "30",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "cursor",
+									"value": "0",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get Unix time https://www.epochconverter.com/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat Rooms",
+			"description": "",
+			"item": [
+				{
+					"name": "Create a Chat Room",
+					"request": {
+						"url": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatrooms",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All the Chat Rooms",
+					"request": {
+						"url": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatrooms",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chat Room Details",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatrooms/:chatroom_id",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatrooms",
+								":chatroom_id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "chatroom_id",
+									"value": "{{chatroom_id}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Chat Room Details",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatrooms/:chatroom_id",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatrooms",
+								":chatroom_id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "chatroom_id",
+									"value": "{{chatroom_id}}"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Chat Room Members in Batch",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatrooms/:chatroom_id/users",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatrooms",
+								":chatroom_id",
+								"users"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "chatroom_id",
+									"value": "{{test_chatroom_1}}"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"usernames\": [\n    \"user2\"\n  ]\n}"
+						},
+						"description": "Add max 60 group members at a time."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Chat Room Members in Batch",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatrooms/:chatroom_id/users/:usernames",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatrooms",
+								":chatroom_id",
+								"users",
+								":usernames"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "chatroom_id",
+									"value": "{{test_chatroom_1}}"
+								},
+								{
+									"description": "",
+									"key": "usernames",
+									"value": "{{test_usernames}}"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Chat Room",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatrooms/:chatroom_id",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatrooms",
+								":chatroom_id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "chatroom_id",
+									"value": "{{chatroom_id}}"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Chat Room Member",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatrooms/:chatroom_id/users/:username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatrooms",
+								":chatroom_id",
+								"users",
+								":username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "chatroom_id",
+									"value": "{{chatroom_id}}"
+								},
+								{
+									"description": "",
+									"key": "username",
+									"value": "{{username}}"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a Chat Room Member",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatrooms/:chatroom_id/users/:username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatrooms",
+								":chatroom_id",
+								"users",
+								":username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "chatroom_id",
+									"value": "{{chatroom_id}}"
+								},
+								{
+									"description": "",
+									"key": "username",
+									"value": "{{username}}"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"description": "",
+			"item": [
+				{
+					"name": "Get All the Groups",
+					"request": {
+						"url": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Group",
+					"request": {
+						"url": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"groupname\": \"testGroup\",\n  \"desc\": \"test group\",\n  \"public\": true,\n  \"maxusers\": 100,\n  \"approval\": false,\n  \"owner\": \"user1\",\n  \"members\": [\n    \"user2\"\n  ]\n}"
+						},
+						"description": "Group settings:\n1. Group name\n2. Group description\n3. Public vs. Private Group\n4. Max number of member (including admin)\n5. If public group, allow join freely vs. require permission from admin\n6. allowinvites property. If public group, then allowinvites is false. If private group, then allowinvites is true. \n\ngroup body:\n{\n  \"groupname\": \"group_name\",\t// group name. \n  \"desc\": \"group description\",\t// group description\n  \"public\": true,\t\t\t\t// group type, public vs. private. Public group is searchable, private requires invitation.\n  \"maxusers\": 0,\t\t\t\t// max number of group member, excluding owner and admin. \n  \"approval\": true,\t\t\t\t// if require approval to join the group\n  \"owner\": \"owner_username\",\t// The owner (admin) of the group\n  \"members\": [\t\t\t\t\t// (Optional) add user to group members, excluding owner. Ignore if not needed.\n    \"user1\"\n  ]\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group(s) Details",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_ids",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_ids"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_ids",
+									"value": "{{test_group_1}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Group Details",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_id",
+									"value": "{{test_group_1}}"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"groupname\": \"group name changed\",\n  \"description\": \"still the same test group\",\n  \"maxusers\": 100\n}"
+						},
+						"description": "The message body only allows groupname, description, and maxusers.\n\nNote: Use '+' to replace space if modifying groupname ​and description. E.g., use \"test+group\" instead of \"test group\".\n\nWarning: If group cannot be found or operation failed, then the response will still return HTTP code 200, but key-value are \"maxusers\"=false, \"groupname\"=false, and \"description\"=false. "
+					},
+					"response": []
+				},
+				{
+					"name": "Block Group Members in Batch",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/blocks/users",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"blocks",
+								"users"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_id",
+									"value": "{{test_group_1}}"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": "Block multiple group members by adding the users to the group blacklist. Max 60 users at a time. Blocked users will receive an event, \"You are kicked out of the group {groupid}\". Blocked user will not able to see nor receive group message."
+					},
+					"response": []
+				},
+				{
+					"name": "Unblock Group Members in Batch",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/blocks/users/:usernames",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"blocks",
+								"users",
+								":usernames"
+							],
+							"query": [],
+							"variable": [
+								{
+									"key": "group_id",
+									"value": "{{test_group_1}}",
+									"type": "text",
+									"enabled": true,
+									"description": ""
+								},
+								{
+									"key": "usernames",
+									"value": "{{usernames}}",
+									"type": "text",
+									"enabled": true,
+									"description": ""
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Block a Group Member",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/blocks/users/:username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"blocks",
+								"users",
+								":username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"key": "group_id",
+									"value": "{{test_group_1}}",
+									"type": "text",
+									"enabled": true,
+									"description": ""
+								},
+								{
+									"key": "username",
+									"value": "{{test_username_3}}",
+									"type": "text",
+									"enabled": true,
+									"description": ""
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Block a group member by adding the user to the group blacklist. \nBlocked user will receive an event, \"You are kicked out of the group {groupid}\".\nBlocked user will not able to see nor  receive group message. "
+					},
+					"response": []
+				},
+				{
+					"name": "Unblock a Group Member",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/blocks/users/:username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"blocks",
+								"users",
+								":username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"key": "group_id",
+									"value": "{{test_group_1}}",
+									"type": "text",
+									"enabled": true,
+									"description": ""
+								},
+								{
+									"key": "username",
+									"value": "{{test_username_3}}",
+									"type": "text",
+									"enabled": true,
+									"description": ""
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Unblock group member by removing the user from group blacklist. "
+					},
+					"response": []
+				},
+				{
+					"name": "Get a List of Members of Group",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/users",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"users"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_id",
+									"value": "{{test_group_1}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Group Blocked Users",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/blocks/users",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"blocks",
+								"users"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_id",
+									"value": "{{test_group_1}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get the blacklist of blocked users. Blocked user cannot see nor receive group message."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Group",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_id",
+									"value": "{{test_group_1}}"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add Multiple Members to Group",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/users",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"users"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_id",
+									"value": "{{test_group_1}}"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "Separate usernames by ','"
+						},
+						"description": "Warning: Add max 60 members once at a time. "
+					},
+					"response": []
+				},
+				{
+					"name": "Remove multiple Member from the Group",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/users/:members",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"users",
+								":members"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_id",
+									"value": "{{test_group_1}}"
+								},
+								{
+									"description": "",
+									"key": "members",
+									"value": "{{members}}"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add a Member to Group",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/users/:username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"users",
+								":username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_id",
+									"value": "{{test_group_1}}"
+								},
+								{
+									"description": "",
+									"key": "username",
+									"value": "{{test_username_3}}"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a Member from the Group",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:group_id/users/:username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":group_id",
+								"users",
+								":username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "group_id",
+									"value": "{{test_group_1}}"
+								},
+								{
+									"description": "",
+									"key": "username",
+									"value": "{{test_username_3}}"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update Group Owner",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/chatgroups/:groupid",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"chatgroups",
+								":groupid"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "groupid",
+									"value": "{{test_group_1}}"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"newowner\": \"user2\"\n}"
+						},
+						"description": "Transfer group ownership by changing owner. "
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Messaging",
+			"description": "",
+			"item": [
+				{
+					"name": "Send a Message",
+					"request": {
+						"url": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/messages",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"target_type\": \"users\", \n\t\"target\": [ \n\t\t\"apple\"\n\t], \n\t\"msg\": { \n\t\t\"type\": \"txt\", \n\t\t\"msg\": \"hello there!\" \n\t}, \n\t\"from\": \"orange\", \n\t\"ext\": { \n\t\t\"vote_count\":\"20\", \n\t\t\"questionID\":\"q123\" \n\t}\n}"
+						},
+						"description": "Send a message to user, group, or chatroom.               \nPlease refer to the Hyphenate docs for further details about message body. https://docs.hyphenate.io/docs/messages\n\n{\n\t\"target_type\": \"users\", \t\t// users: messaging user to user. chatgroups: to groups. chatrooms: to chat room\n\t\"target\": [ \n\t\t\"apple\"\t\t\t\t\t\t// message receiver\n\t], \n\t\"msg\": { \n\t\t\"type\": \"txt\",\t\t\t\t// message type. See details, https://docs.hyphenate.io/docs/messages\n\t\t\"msg\": \"hello there!\"\t\t\n\t}, \n\t\"from\": \"orange\",\t\t\t\t// message sender\n\t\"ext\": {\t\t\t\t\t\t// customer field for self-defined key-values\n\t\t\"vote_count\":\"20\", \n\t\t\"questionID\":\"q123\" \n\t}\n}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Upload and Download Files",
+			"description": "",
+			"item": [
+				{
+					"name": "Download a File",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/chatfiles/:uuid",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"chatfiles",
+								":uuid"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								},
+								{
+									"value": "{{uuid}}",
+									"id": "uuid"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							},
+							{
+								"key": "share-secret",
+								"value": "{{share-secret}}",
+								"description": ""
+							},
+							{
+								"key": "thumbnail",
+								"value": "{{thumbnail}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Important:\n1. Include the share-secret from HTTP header \n2. Include uuid from the response of a successful file uploading, which is the file identifier\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload a File",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/chatfiles",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"chatfiles"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							},
+							{
+								"key": "restrict-access",
+								"value": "{{restrict-access}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "text",
+									"value": "{{file}}"
+								}
+							]
+						},
+						"description": "Warning: File cannot be over 10MB, otherwise will fail.\nImportant: Be sure keep the \"uuid\" and \"share-secret\", which are requirement when downloading particular file."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"description": "Folder for {org_name}",
+			"item": [
+				{
+					"name": "Get Users in Batch",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users?limit={{limit}}&cursor={{cursor}}",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "cursor",
+									"value": "{{cursor}}",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get a list of users"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a User",
+					"request": {
+						"url": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"username\": \"user11\",\n    \"nick\": \"user3nickname\",\n    \"password\": \"123456\",\n    \"address\": \"san francisco\"\n  },\n  {\n    \"username\": \"user12\",\n    \"nick\": \"user3nickname\",\n    \"password\": \"123456\",\n    \"address\": \"san francisco\"\n  }\n]"
+						},
+						"description": "Register an IM user account respects to org and app keys. \nNote: There're 2 types of registration, 'open' and 'authorized'. 'open' registration does not require admin authentication, but 'authorized' does. See the application -> \"overview\" -> \"User Registration Permission\" in Hyphenate console. \n'Authorized' registration is recommended, which prevents malicious attempt to create junk user account from the ones obtained the URL. "
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Users in Batch",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/users?limit={{limit}}&cursor={{cursor}}",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "cursor",
+									"value": "{{cursor}}"
+								}
+							],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Delete total number of N user accounts in batch. Recommend set N range 100\\x7e500 at a time to ensure the performance. Cannot specified user account in deletion, check the response to see which user accounts are deleted."
+					},
+					"response": []
+				},
+				{
+					"name": "Get a List of Blocked Users",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/users/:owner_username/blocks/users",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"users",
+								":owner_username",
+								"blocks",
+								"users"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								},
+								{
+									"value": "{{owner_username}}",
+									"id": "owner_username"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get a List of Blocked Users by the user."
+					},
+					"response": []
+				},
+				{
+					"name": "Block User(s)",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/users/:owner_username/blocks/users",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"users",
+								":owner_username",
+								"blocks",
+								"users"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								},
+								{
+									"value": "{{owner_username}}",
+									"id": "owner_username"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "Users to be blocked. Use ',' to separate the usernames"
+						},
+						"description": "Block one or multiple users by adding to blacklist. Blocked user cannot send message."
+					},
+					"response": []
+				},
+				{
+					"name": "Unblock User(s)",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/users/:owner_username/blocks/users/:blocked_username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"users",
+								":owner_username",
+								"blocks",
+								"users",
+								":blocked_username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{blocked_username}}",
+									"id": "blocked_username"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								},
+								{
+									"value": "{{owner_username}}",
+									"id": "owner_username"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Unblock one or multiple users by removing them from blacklist. Max 60 users at a time. "
+					},
+					"response": []
+				},
+				{
+					"name": "Get a List of Contacts",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/users/:owner_username/contacts/users",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"users",
+								":owner_username",
+								"contacts",
+								"users"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								},
+								{
+									"value": "{{owner_username}}",
+									"id": "owner_username"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get user's contact list"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Contact for User",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:owner_username/contacts/users/:friend_username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":owner_username",
+								"contacts",
+								"users",
+								":friend_username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "owner_username",
+									"value": "{{test_username1}}"
+								},
+								{
+									"description": "",
+									"key": "friend_username",
+									"value": "{{test_username2}}"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Add contact for user. Contact to be added must under the same application as the user."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Contact from User",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:username/contacts/users/:userToAdd",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":username",
+								"contacts",
+								"users",
+								":userToAdd"
+							],
+							"query": [],
+							"variable": [
+								{
+									"key": "username",
+									"value": "{{test_username1}}"
+								},
+								{
+									"key": "userToAdd",
+									"value": "{{test_username2}}"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Remove contact from user's contact list. "
+					},
+					"response": []
+				},
+				{
+					"name": "Get Offline Message Count",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:username/offline_msg_count",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":username",
+								"offline_msg_count"
+							],
+							"query": [],
+							"variable": [
+								{
+									"key": "username",
+									"value": "{{test_username1}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get the number of offline messages"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Details",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "username",
+									"value": "user11"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update User's APNs Display Name",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/users/:username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"users",
+								":username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								},
+								{
+									"value": "{{username}}",
+									"id": "username"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "update APNs display name by key \"nickname\""
+						},
+						"description": "Update user's APNs display name for iOS push notification."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a User",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/users/:username",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"users",
+								":username"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								},
+								{
+									"value": "{{username}}",
+									"id": "username"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Warning: Delete a user will also delete the group and chat room if the specified user is the admin of the group and chat room. "
+					},
+					"response": []
+				},
+				{
+					"name": "Activate User Account",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/users/:username/activate",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"users",
+								":username",
+								"activate"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								},
+								{
+									"value": "{{username}}",
+									"id": "username"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Activate a deactivated user account. "
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate User Account",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:username/deactivate",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":username",
+								"deactivate"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "username",
+									"value": "{{test_username1}}"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Deactivate a user account. User will not be able to login. "
+					},
+					"response": []
+				},
+				{
+					"name": "Logout User",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:username/disconnect",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":username",
+								"disconnect"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "username",
+									"value": "{{test_username1}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Force logout a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a List of Groups of User Joined",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:username/joined_chatgroups",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":username",
+								"joined_chatgroups"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "username",
+									"value": "{{test_username1}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get All the Chat Rooms of User Joined",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:username/joined_chatrooms",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":username",
+								"joined_chatrooms"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "username",
+									"value": "{{test_username1}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Undelivered Message Status",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:username/offline_msg_status/:messageID",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":username",
+								"offline_msg_status",
+								":messageID"
+							],
+							"query": [],
+							"variable": [
+								{
+									"key": "username",
+									"value": "{{test_username1}}",
+									"description": "the username of receiver"
+								},
+								{
+									"key": "messageID",
+									"value": "353225765485019184",
+									"description": "Get the message ID from get message history /chatmessages API."
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": "Get Undelivered message status via message ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Reset User's Password",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/:org_name/:app_name/users/:username/password",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								":org_name",
+								":app_name",
+								"users",
+								":username",
+								"password"
+							],
+							"query": [],
+							"variable": [
+								{
+									"value": "{{app_name}}",
+									"id": "app_name"
+								},
+								{
+									"value": "{{org_name}}",
+									"id": "org_name"
+								},
+								{
+									"value": "{{username}}",
+									"id": "username"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "Set a new password by using key \"newpassword\""
+						},
+						"description": "To enhance security, we recommend update user's Hyphenate IM user account password if the user's app password on developer server is updated."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Online Status",
+					"request": {
+						"url": {
+							"raw": "http://api.hyphenate.io/{{org_name}}/{{app_name}}/users/:username/status",
+							"protocol": "http",
+							"host": [
+								"api",
+								"hyphenate",
+								"io"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								":username",
+								"status"
+							],
+							"query": [],
+							"variable": [
+								{
+									"description": "",
+									"key": "username",
+									"value": "{{test_username1}}"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "7fd2b0c1-a7de-f006-63d1-c2dbf8b1ca4d",
+  "name": "hyphenate test",
+  "values": [
+    {
+      "enabled": true,
+      "key": "org_name",
+      "value": "hyphenatedemo",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "app_name",
+      "value": "fruitworld",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "baseURL",
+      "value": "api.hyphenate.io",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "test_username1",
+      "value": "user1",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "token",
+      "value": "YWMtDCmKuGZ-Eeex9ZPwLTR8SwAAAV5ofze991YUmXqQVfG-NF5pHgsXAs8sr2Y",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "client_secret",
+      "value": "YXA6sTlYHHoyCGioX-Mnx9MXiCXnrCg",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "client_id",
+      "value": "YXA6EzdrgDzREeeP2tWiQHfV1w",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "test_username2",
+      "value": "user2",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "test_chatroom_1",
+      "value": "16596412203009",
+      "type": "text"
+    },
+    {
+      "enabled": true,
+      "key": "test_group_1",
+      "value": "21414142869505",
+      "type": "text"
+    }
+  ],
+  "timestamp": 1499822756533,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2017-08-08T21:13:07.058Z",
+  "_postman_exported_using": "Postman/5.1.3"
+}
